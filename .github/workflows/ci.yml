@@ -42,11 +42,16 @@ jobs:
         continue-on-error: true
 
       - name: SonarQube analysis
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@{{ github.sha }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
+        
+      - name: Display commit info
+        run: |
+          echo "Current commit: ${{ github.sha }}"
+          echo "Commit short SHA: ${GITHUB_SHA:0:7}"
 
       - name: Generate SBOM
         run: |
@@ -77,7 +82,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Code quality checks completed! Check the workflow run for detailed results.'
+              body: '✅ Code quality checks for the commit ${{ github.sha }} got completed! Check the workflow run for detailed results.'
             })
       
   # ==============================================================
