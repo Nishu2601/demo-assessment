@@ -52,11 +52,12 @@ jobs:
         run: |
           echo "Current commit: ${{ github.sha }}"
           echo "Commit short SHA: ${GITHUB_SHA:0:7}"
-
+      - name: Install CycloneDX
+        run: npm install -g @cyclonedx/cyclonedx-npm
       - name: Generate SBOM
         run: |
-          npm install -g @cyclonedx/npm
-          cyclonedx-npm --output-format json --output-file sbom.json
+          npm install -g @cyclonedx/cyclonedx-npm
+          cyclonedx-npm --output-file sbom.json
         continue-on-error: true
 
       - name: Upload SBOM artifact
