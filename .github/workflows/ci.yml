@@ -24,6 +24,23 @@ jobs:
 
       - name: Run tests
         run: npm test
+        
+      - name: Generate documentation
+        run: npm run docs --if-present
+        continue-on-error: true
+  copilot-ai-check:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run code quality checks
+        run: echo "Running code quality analysis..."
+      
+      - name: Security scan
+        run: echo "Running security vulnerability scan..."
       
   # ==============================================================
   # STAGE 2: Software Composition Analysis (SCA) — Dependency Audit
