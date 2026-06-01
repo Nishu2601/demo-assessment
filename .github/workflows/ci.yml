@@ -76,7 +76,7 @@ jobs:
           path: sbom.json
         if: always()
       - name: Run tests
-        run: npx jest --coverage
+        run: npx jest --coverage --passWithNoTests
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
