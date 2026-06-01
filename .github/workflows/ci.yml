@@ -24,6 +24,16 @@ jobs:
 
       - name: Run tests
         run: npm test
+      
+      - name: Run tests
+        run: npx jest --coverage --passWithNoTests
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
+          if-no-files-found: warn
+        if: always()
         
       - name: Generate documentation
         run: npm run docs --if-present
@@ -75,15 +85,6 @@ jobs:
           name: sbom
           path: sbom.json
         if: always()
-      - name: Run tests
-        run: npx jest --coverage --passWithNoTests
-      - name: Upload coverage reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/.*
-        if: always()
-
       - name: Comment PR with results
         uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
