@@ -43,6 +43,11 @@ jobs:
 
       - name: SonarQube analysis
         uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=nisprksh_demo-assessment
+            -Dsonar.organization=nisprksh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
