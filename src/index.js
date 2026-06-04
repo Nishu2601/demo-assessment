@@ -8,7 +8,21 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.get("/", (_req, res) => {
-  res.json({ status: "ok", agent: "code-review-assistant" });
+  res.json({
+    status: "ok",
+    service: "GDCI BANK HRMS Assistant",
+    version: "1.0.0",
+    environment: process.env.NODE_ENV || "production",
+    port: PORT,
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    endpoints: {
+      post: "POST / - Submit code for review",
+      get: "GET / - Service health check"
+    },
+    description: "HRMS Assistant is a service feedback for payroll portal development. It integrates with GitHub Copilot to analyze code and offer suggestions for improvement.",
+    ready: true
+  });
 });
 
 app.post("/", async (req, res) => {
@@ -48,5 +62,6 @@ app.post("/", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Code review agent listening on port ${PORT}`);
+  console.log(`The HRMS Portal is listening on port ${PORT}`);
+  console.log(`Present the payroll portal requests to http://localhost:${PORT}/ with the appropriate headers and body.`);
 });
